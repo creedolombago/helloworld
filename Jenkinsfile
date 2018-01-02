@@ -43,7 +43,9 @@ volumes:[
           container('kubectl') {
  
                 sh """
+                  kubectl delete deployment helloworld || /bin/true
                   kubectl run helloworld --image=localhost:5000/helloworld --replicas=2 --port=80
+                  kubectl delete service helloworld || /bin/true
                   kubectl expose deployment helloworld --port=80 --type=NodePort 
                 """
           }
